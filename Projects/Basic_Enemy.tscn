@@ -119,9 +119,6 @@ script = ExtResource( 4 )
 __meta__ = {
 "_edit_lock_": true
 }
-ACCELERATION = null
-MAX_SPEED = null
-JUMP_HEIGHT = null
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="KinematicBody2D"]
 position = Vector2( -40.8456, -44.7984 )

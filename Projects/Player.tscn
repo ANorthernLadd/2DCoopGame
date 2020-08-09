@@ -21,17 +21,12 @@
 [ext_resource path="res://Sprites/Adventurer/adventurer-idle-00.png" type="Texture" id=26]
 [ext_resource path="res://Sprites/Adventurer/adventurer-jump-02.png" type="Texture" id=27]
 
-[sub_resource type="CapsuleShape2D" id=4]
+[sub_resource type="CapsuleShape2D" id=1]
 radius = 20.9444
 height = 19.8177
 
-[sub_resource type="SpriteFrames" id=3]
+[sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 2 ), ExtResource( 4 ), ExtResource( 1 ), ExtResource( 3 ) ],
-"loop": false,
-"name": "Slash",
-"speed": 10.0
-}, {
 "frames": [ ExtResource( 26 ), ExtResource( 20 ) ],
 "loop": true,
 "name": "Idle",
@@ -51,6 +46,11 @@ animations = [ {
 "loop": true,
 "name": "Fall",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 4 ), ExtResource( 1 ), ExtResource( 3 ) ],
+"loop": false,
+"name": "Slash",
+"speed": 10.0
 } ]
 
 [node name="Player" type="KinematicBody2D"]
@@ -58,7 +58,10 @@ script = ExtResource( 12 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 1.25993, 1.37003 )
-shape = SubResource( 4 )
+shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
@@ -76,6 +79,7 @@ texture = ExtResource( 13 )
 centered = false
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 3.9816, -3.41278 )
 scale = Vector2( 2, 2 )
-frames = SubResource( 3 )
+frames = SubResource( 2 )
 animation = "Slash"

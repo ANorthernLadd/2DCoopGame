@@ -16,8 +16,6 @@ func _physics_process(delta):
 	if motion.x < 0:
 			$AnimatedSprite.play("Run")
 			$AnimatedSprite.flip_h = true;
-	if
-		
 	
 		
 	
