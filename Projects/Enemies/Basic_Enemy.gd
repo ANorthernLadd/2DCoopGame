@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-onready var player = get_node("res://Player.tscn")
+onready var player = get_node("res://Player/Player.tscn")
 const UP = Vector2(0, -1)
 const GRAVITY = 20
 export var ACCELERATION = 50

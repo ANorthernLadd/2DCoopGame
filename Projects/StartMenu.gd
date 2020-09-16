@@ -2,7 +2,7 @@
 extends Control
 
 func _on_Start_pressed():
-	get_tree().change_scene("res://World.tscn")
+	get_tree().change_scene("res://Worlds/World.tscn")
 
 
 func _on_Quit_pressed():
