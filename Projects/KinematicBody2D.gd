@@ -4,12 +4,13 @@ const UP = Vector2(0, -1)
 export var GRAVITY = 20
 export var ACCELERATION = 50
 export var MAX_SPEED = 200
+export var STOP = 0
 export var JUMP_HEIGHT = -600
 var attacking = false
 var motion = Vector2()
 onready var animationPlayer = $AnimationPlayer
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	motion.y += GRAVITY
 	var friction = false
 	
@@ -17,17 +18,22 @@ func _physics_process(delta):
 		motion.x = min(motion.x+ACCELERATION, MAX_SPEED)
 		$"Sprite".flip_h = false;
 		if !attacking:
-			animationPlayer.play("Run-Right")
+			animationPlayer.play("RUN")
 	elif Input.is_action_pressed("ui_left"):
 		motion.x = max(motion.x-ACCELERATION, -MAX_SPEED)
 		$"Sprite".flip_h = true;
 		if !attacking:
-			animationPlayer.play("Run-Right")
+			animationPlayer.play("RUN")
 	else:
 		motion.x = lerp(motion.x, 0, 0.2)
 		friction = true
 		if !attacking:
-			animationPlayer.play("Idle")
+			animationPlayer.play("IDLE")
+			
+	if Input.is_action_pressed("ui_down"):
+		motion.x = STOP
+		if !attacking:
+			animationPlayer.play("CROUCH")
 
 	var jumping = checkAndHandleJump(friction)
 #	HandleAttack(jumping)
@@ -46,9 +52,9 @@ func checkAndHandleJump(friction):
 	else:
 		jumping = true
 		if motion.y < 0:
-			animationPlayer.play("Jumping")
+			animationPlayer.play("JUMP")
 		else:
-			animationPlayer.play("Jump_down")
+			animationPlayer.play("FALLING")
 		if friction == true:
 			motion.x = lerp(motion.x, 0, 0.05)
 	return jumping

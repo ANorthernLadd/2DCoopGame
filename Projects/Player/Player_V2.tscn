@@ -1,7 +1,6 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://Sprites/Adventurer/adventurer-Sheet.png" type="Texture" id=1]
-[ext_resource path="res://Sprites/Adventurer/adventurer-hand-combat-Sheet_adjusted.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Player/Ultimate_sprite.png" type="Texture" id=1]
 [ext_resource path="res://KinematicBody2D.gd" type="Script" id=12]
 [ext_resource path="res://Sprites/Tiles/Sky.png" type="Texture" id=13]
 
@@ -9,25 +8,8 @@
 radius = 20.9444
 height = 19.8177
 
-[sub_resource type="Animation" id=7]
-resource_name = "Crouch Walk"
-length = 0.6
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite2:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 52, 53, 54, 55, 56, 57 ]
-}
-
-[sub_resource type="Animation" id=8]
-resource_name = "Crouching"
+[sub_resource type="Animation" id=3]
+resource_name = "CROUCH"
 length = 0.3
 loop = true
 tracks/0/type = "value"
@@ -43,8 +25,25 @@ tracks/0/keys = {
 "values": [ 4, 5, 7 ]
 }
 
-[sub_resource type="Animation" id=6]
-resource_name = "Falling"
+[sub_resource type="Animation" id=2]
+resource_name = "CROUCH_WALK"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 129, 130, 131, 132, 133, 134 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "FALLING"
 length = 0.2
 loop = true
 tracks/0/type = "value"
@@ -60,8 +59,8 @@ tracks/0/keys = {
 "values": [ 22, 23 ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "Idle"
+[sub_resource type="Animation" id=5]
+resource_name = "IDLE"
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -77,24 +76,8 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "Jump_down"
-length = 0.6
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 18, 19, 20, 21, 22, 23 ]
-}
-
-[sub_resource type="Animation" id=4]
-resource_name = "Jumping"
+[sub_resource type="Animation" id=7]
+resource_name = "JUMP"
 length = 0.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -110,7 +93,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=9]
-resource_name = "Run-Left"
+resource_name = "RUN"
 length = 0.6
 loop = true
 tracks/0/type = "value"
@@ -126,22 +109,8 @@ tracks/0/keys = {
 "values": [ 8, 9, 10, 11, 12, 13 ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "Run-Right"
-length = 0.6
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 8, 9, 10, 11, 12, 13 ]
-}
+[sub_resource type="Animation" id=10]
+resource_name = "SLIDING"
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 12 )
@@ -149,20 +118,9 @@ script = ExtResource( 12 )
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 2, 2 )
 texture = ExtResource( 1 )
-vframes = 11
+vframes = 21
 hframes = 7
-frame = 8
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Sprite2" type="Sprite" parent="."]
-visible = false
-scale = Vector2( 2, 2 )
-texture = ExtResource( 2 )
-vframes = 10
-hframes = 7
-frame = 52
+frame = 134
 __meta__ = {
 "_edit_lock_": true
 }
@@ -190,11 +148,10 @@ texture = ExtResource( 13 )
 centered = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-"anims/Crouch Walk" = SubResource( 7 )
-anims/Crouching = SubResource( 8 )
-anims/Falling = SubResource( 6 )
-anims/Idle = SubResource( 3 )
-anims/Jump_down = SubResource( 5 )
-anims/Jumping = SubResource( 4 )
-anims/Run-Left = SubResource( 9 )
-anims/Run-Right = SubResource( 2 )
+anims/CROUCH = SubResource( 3 )
+anims/CROUCH_WALK = SubResource( 2 )
+anims/FALLING = SubResource( 4 )
+anims/IDLE = SubResource( 5 )
+anims/JUMP = SubResource( 7 )
+anims/RUN = SubResource( 9 )
+anims/SLIDING = SubResource( 10 )
