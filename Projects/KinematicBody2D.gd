@@ -4,6 +4,7 @@ const UP = Vector2(0, -1)
 export var GRAVITY = 20
 export var ACCELERATION = 50
 export var MAX_SPEED = 200
+export var CROUCH_SPEED = 100
 export var STOP = 0
 export var JUMP_HEIGHT = -600
 var attacking = false
@@ -30,7 +31,17 @@ func _physics_process(_delta):
 		if !attacking:
 			animationPlayer.play("IDLE")
 			
-	if Input.is_action_pressed("ui_down"):
+	if Input.is_action_pressed("ui_down") and Input.is_action_pressed("ui_right"):
+		motion.x = (CROUCH_SPEED)
+		$"Sprite".flip_h = false;
+		if !attacking:
+			animationPlayer.play("CROUCH_WALK")
+	elif Input.is_action_pressed("ui_down") and Input.is_action_pressed("ui_left"):
+		motion.x = (-CROUCH_SPEED)
+		$"Sprite".flip_h = true;
+		if !attacking:
+			animationPlayer.play("CROUCH_WALK")
+	elif Input.is_action_pressed("ui_down"):
 		motion.x = STOP
 		if !attacking:
 			animationPlayer.play("CROUCH")

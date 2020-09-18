@@ -8,7 +8,7 @@
 radius = 20.9444
 height = 19.8177
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 resource_name = "CROUCH"
 length = 0.3
 loop = true
@@ -25,8 +25,7 @@ tracks/0/keys = {
 "values": [ 4, 5, 7 ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "CROUCH_WALK"
+[sub_resource type="Animation" id=3]
 length = 0.6
 loop = true
 tracks/0/type = "value"
@@ -76,7 +75,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=6]
 resource_name = "JUMP"
 length = 0.4
 tracks/0/type = "value"
@@ -92,7 +91,7 @@ tracks/0/keys = {
 "values": [ 14, 15, 16, 17 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=7]
 resource_name = "RUN"
 length = 0.6
 loop = true
@@ -109,7 +108,7 @@ tracks/0/keys = {
 "values": [ 8, 9, 10, 11, 12, 13 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=8]
 resource_name = "SLIDING"
 
 [node name="Player" type="KinematicBody2D"]
@@ -120,7 +119,7 @@ scale = Vector2( 2, 2 )
 texture = ExtResource( 1 )
 vframes = 21
 hframes = 7
-frame = 134
+frame = 15
 __meta__ = {
 "_edit_lock_": true
 }
@@ -148,10 +147,10 @@ texture = ExtResource( 13 )
 centered = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/CROUCH = SubResource( 3 )
-anims/CROUCH_WALK = SubResource( 2 )
+anims/CROUCH = SubResource( 2 )
+anims/CROUCH_WALK = SubResource( 3 )
 anims/FALLING = SubResource( 4 )
 anims/IDLE = SubResource( 5 )
-anims/JUMP = SubResource( 7 )
-anims/RUN = SubResource( 9 )
-anims/SLIDING = SubResource( 10 )
+anims/JUMP = SubResource( 6 )
+anims/RUN = SubResource( 7 )
+anims/SLIDING = SubResource( 8 )
