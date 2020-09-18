@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Sprites/Player/Ultimate_sprite.png" type="Texture" id=1]
 [ext_resource path="res://KinematicBody2D.gd" type="Script" id=12]
@@ -7,6 +7,22 @@
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 20.9444
 height = 19.8177
+
+[sub_resource type="Animation" id=9]
+resource_name = "ATTACK"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 78, 79, 80, 81 ]
+}
 
 [sub_resource type="Animation" id=2]
 resource_name = "CROUCH"
@@ -119,7 +135,7 @@ scale = Vector2( 2, 2 )
 texture = ExtResource( 1 )
 vframes = 21
 hframes = 7
-frame = 15
+frame = 81
 __meta__ = {
 "_edit_lock_": true
 }
@@ -147,6 +163,7 @@ texture = ExtResource( 13 )
 centered = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/ATTACK = SubResource( 9 )
 anims/CROUCH = SubResource( 2 )
 anims/CROUCH_WALK = SubResource( 3 )
 anims/FALLING = SubResource( 4 )

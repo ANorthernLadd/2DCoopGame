@@ -10,66 +10,90 @@ export var JUMP_HEIGHT = -600
 var attacking = false
 var motion = Vector2()
 onready var animationPlayer = $AnimationPlayer
+var currentState
+
+enum STATE{
+  RUNNING,
+  CROUCH_WALKING,
+  CROUCHING,
+  IDLE,
+  JUMPING,
+  FALLING,
+  ATTACKING
+}
 
 func _physics_process(_delta):
-	motion.y += GRAVITY
-	var friction = false
-	
+	applyGravity()
+	getCurrentState()
+	animate()
+	motion = move_and_slide(motion, UP)
+	pass
+
+func getCurrentState():
 	if Input.is_action_pressed("ui_right"):
 		motion.x = min(motion.x+ACCELERATION, MAX_SPEED)
 		$"Sprite".flip_h = false;
-		if !attacking:
-			animationPlayer.play("RUN")
 	elif Input.is_action_pressed("ui_left"):
 		motion.x = max(motion.x-ACCELERATION, -MAX_SPEED)
 		$"Sprite".flip_h = true;
-		if !attacking:
-			animationPlayer.play("RUN")
 	else:
 		motion.x = lerp(motion.x, 0, 0.2)
-		friction = true
-		if !attacking:
-			animationPlayer.play("IDLE")
-			
-	if Input.is_action_pressed("ui_down") and Input.is_action_pressed("ui_right"):
-		motion.x = (CROUCH_SPEED)
-		$"Sprite".flip_h = false;
-		if !attacking:
-			animationPlayer.play("CROUCH_WALK")
-	elif Input.is_action_pressed("ui_down") and Input.is_action_pressed("ui_left"):
-		motion.x = (-CROUCH_SPEED)
-		$"Sprite".flip_h = true;
-		if !attacking:
-			animationPlayer.play("CROUCH_WALK")
-	elif Input.is_action_pressed("ui_down"):
-		motion.x = STOP
-		if !attacking:
-			animationPlayer.play("CROUCH")
-
-	var jumping = checkAndHandleJump(friction)
-#	HandleAttack(jumping)
-
-	motion = move_and_slide(motion, UP)
-	pass
-	
-func checkAndHandleJump(friction):
-	var jumping = false
+		
 	if is_on_floor():
+		var jumping = false
 		if Input.is_action_just_pressed("ui_up"):
 			motion.y = JUMP_HEIGHT
 			jumping = true
-		if friction == true:
-			motion.x = lerp(motion.x, 0, 0.2)	
+		if !jumping:
+			if Input.is_action_just_pressed("attack"):
+				currentState = STATE.ATTACKING
+				attacking = true
+				animationPlayer.connect("animation_finished", self, "stopAttack")
+			if Input.is_action_pressed("ui_down"):
+				if Input.is_action_pressed("ui_right"):
+					currentState = STATE.CROUCH_WALKING
+				elif Input.is_action_pressed("ui_left"):
+					currentState = STATE.CROUCH_WALKING
+				else:
+					currentState = STATE.CROUCHING
+			else:
+				if Input.is_action_pressed("ui_right"):
+					if !attacking:
+						currentState = STATE.RUNNING
+				elif Input.is_action_pressed("ui_left"):
+					if !attacking:
+						currentState = STATE.RUNNING
+				else:
+					if !attacking:
+						currentState = STATE.IDLE				
 	else:
-		jumping = true
 		if motion.y < 0:
-			animationPlayer.play("JUMP")
+			currentState = STATE.JUMPING
 		else:
-			animationPlayer.play("FALLING")
-		if friction == true:
-			motion.x = lerp(motion.x, 0, 0.05)
-	return jumping
-	
+			currentState = STATE.FALLING
+			
+func animate():
+	if currentState == STATE.JUMPING:
+		animationPlayer.play("JUMP")
+	elif currentState == STATE.CROUCH_WALKING:
+		animationPlayer.play("CROUCH_WALK")
+	elif currentState == STATE.CROUCHING:
+		animationPlayer.play("CROUCH")
+	elif currentState == STATE.RUNNING:
+		animationPlayer.play("RUN")
+	elif currentState == STATE.FALLING:
+		animationPlayer.play("FALLING")	
+	elif currentState == STATE.IDLE:
+		animationPlayer.play("IDLE")
+	elif currentState == STATE.ATTACKING:
+		animationPlayer.play("ATTACK")
+		
+func applyGravity():
+	motion.y += GRAVITY
+
+func stopAttack(anim):
+	attacking = false
+	animationPlayer.disconnect("animation_finished", self, "stopAttack")
 #func HandleAttack(jumping):
 #	if !jumping && Input.is_action_just_pressed("attack"):
 #		$AnimatedSprite.play("Slash")
