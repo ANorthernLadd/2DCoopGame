@@ -24,6 +24,10 @@ config/name="2dPlateformer_Ideam"
 run/main_scene="res://StartMenu.tscn"
 config/icon="res://Sprites/icon.png"
 
+[autoload]
+
+PlayerStats="*res://Player/PlayerStats.tscn"
+
 [display]
 
 window/size/width=640

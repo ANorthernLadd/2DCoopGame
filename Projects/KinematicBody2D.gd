@@ -11,6 +11,7 @@ var attacking = false
 var motion = Vector2()
 onready var animationPlayer = $AnimationPlayer
 var currentState
+var stats = PlayerStats
 
 enum STATE{
   RUNNING,
@@ -21,6 +22,9 @@ enum STATE{
   FALLING,
   ATTACKING
 }
+
+func _ready():
+	stats.connect("no_health", self, "queue_free")
 
 func _physics_process(_delta):
 	applyGravity()
