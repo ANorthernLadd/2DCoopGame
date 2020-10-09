@@ -8,8 +8,10 @@ export var MAX_SPEED = 50
 export var JUMP_HEIGHT = -600
 var motion = Vector2()
 var horizontalMovementModifier = 1
+export var rightside = false
 
 func _physics_process(delta):
+	var olddirection = rightside
 	
 	motion.x = MAX_SPEED * horizontalMovementModifier
 	if isColliding():
@@ -18,13 +20,15 @@ func _physics_process(delta):
 	motion.y += GRAVITY
 	
 	if motion.x < 0:
+		rightside = true
 		$AnimatedSprite.play("Run")
-		$AnimatedSprite.flip_h = true;
 	elif motion.x > 0:
+		rightside = false
 		$AnimatedSprite.play("Run")
-		$AnimatedSprite.flip_h = false;
 	else:
 		$AnimatedSprite.play("Idle")
+	if rightside != olddirection:
+		self.scale.x *= -1
 	
 	motion = move_and_slide(motion, UP)
 

@@ -144,7 +144,7 @@ scale = Vector2( 2, 2 )
 texture = ExtResource( 1 )
 vframes = 21
 hframes = 7
-frame = 78
+frame = 81
 __meta__ = {
 "_edit_lock_": true
 }

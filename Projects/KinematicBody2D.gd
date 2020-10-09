@@ -12,6 +12,7 @@ var motion = Vector2()
 onready var animationPlayer = $AnimationPlayer
 var currentState
 var stats = PlayerStats
+export var rightside = true
 
 enum STATE{
   RUNNING,
@@ -93,15 +94,17 @@ func stopAttack(anim):
 	animationPlayer.disconnect("animation_finished", self, "stopAttack")
 
 func movePlayer(max_speed):
+	var olddirection = rightside
 	if Input.is_action_pressed("ui_right"):
 		motion.x = min(motion.x+ACCELERATION, max_speed)
-		$"Sprite".flip_h = false;
+		rightside = true
 	elif Input.is_action_pressed("ui_left"):
 		motion.x = max(motion.x-ACCELERATION, -max_speed)
-		$"Sprite".flip_h = true;
+		rightside = false
 	else:
 		motion.x = lerp(motion.x, 0, 0.2)
-		
+	if rightside != olddirection:
+		self.scale.x *= -1
 func getMaxSpeed():
 	if currentState == STATE.CROUCHING || currentState == STATE.CROUCH_WALKING :
 		return CROUCH_SPEED
