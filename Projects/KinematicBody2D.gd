@@ -25,20 +25,13 @@ enum STATE{
 func _physics_process(_delta):
 	applyGravity()
 	getCurrentState()
+	var maxspeed = getMaxSpeed()
+	movePlayer(maxspeed)
 	animate()
 	motion = move_and_slide(motion, UP)
 	pass
 
-func getCurrentState():
-	if Input.is_action_pressed("ui_right"):
-		motion.x = min(motion.x+ACCELERATION, MAX_SPEED)
-		$"Sprite".flip_h = false;
-	elif Input.is_action_pressed("ui_left"):
-		motion.x = max(motion.x-ACCELERATION, -MAX_SPEED)
-		$"Sprite".flip_h = true;
-	else:
-		motion.x = lerp(motion.x, 0, 0.2)
-		
+func getCurrentState():		
 	if is_on_floor():
 		var jumping = false
 		if Input.is_action_just_pressed("ui_up"):
@@ -70,7 +63,7 @@ func getCurrentState():
 		if motion.y < 0:
 			currentState = STATE.JUMPING
 		else:
-			currentState = STATE.FALLING
+			currentState = STATE.FALLING			
 			
 func animate():
 	if currentState == STATE.JUMPING:
@@ -94,9 +87,20 @@ func applyGravity():
 func stopAttack(anim):
 	attacking = false
 	animationPlayer.disconnect("animation_finished", self, "stopAttack")
-#func HandleAttack(jumping):
-#	if !jumping && Input.is_action_just_pressed("attack"):
-#		$AnimatedSprite.play("Slash")
-#		attacking = true
-#	if $AnimatedSprite.get_frame() == 3 && attacking:
-#		attacking = false
+
+func movePlayer(max_speed):
+	if Input.is_action_pressed("ui_right"):
+		motion.x = min(motion.x+ACCELERATION, max_speed)
+		$"Sprite".flip_h = false;
+	elif Input.is_action_pressed("ui_left"):
+		motion.x = max(motion.x-ACCELERATION, -max_speed)
+		$"Sprite".flip_h = true;
+	else:
+		motion.x = lerp(motion.x, 0, 0.2)
+		
+func getMaxSpeed():
+	if currentState == STATE.CROUCHING || currentState == STATE.CROUCH_WALKING :
+		return CROUCH_SPEED
+	else:
+		return MAX_SPEED
+		

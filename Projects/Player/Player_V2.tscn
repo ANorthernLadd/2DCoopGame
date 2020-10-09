@@ -8,7 +8,7 @@
 radius = 20.9444
 height = 19.8177
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=2]
 resource_name = "ATTACK"
 length = 0.4
 tracks/0/type = "value"
@@ -24,8 +24,7 @@ tracks/0/keys = {
 "values": [ 78, 79, 80, 81 ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "CROUCH"
+[sub_resource type="Animation" id=3]
 length = 0.3
 loop = true
 tracks/0/type = "value"
@@ -41,7 +40,7 @@ tracks/0/keys = {
 "values": [ 4, 5, 7 ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 length = 0.6
 loop = true
 tracks/0/type = "value"
@@ -57,8 +56,7 @@ tracks/0/keys = {
 "values": [ 129, 130, 131, 132, 133, 134 ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "FALLING"
+[sub_resource type="Animation" id=5]
 length = 0.2
 loop = true
 tracks/0/type = "value"
@@ -74,8 +72,7 @@ tracks/0/keys = {
 "values": [ 22, 23 ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "IDLE"
+[sub_resource type="Animation" id=6]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -91,8 +88,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=6]
-resource_name = "JUMP"
+[sub_resource type="Animation" id=7]
 length = 0.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -107,8 +103,7 @@ tracks/0/keys = {
 "values": [ 14, 15, 16, 17 ]
 }
 
-[sub_resource type="Animation" id=7]
-resource_name = "RUN"
+[sub_resource type="Animation" id=8]
 length = 0.6
 loop = true
 tracks/0/type = "value"
@@ -124,8 +119,7 @@ tracks/0/keys = {
 "values": [ 8, 9, 10, 11, 12, 13 ]
 }
 
-[sub_resource type="Animation" id=8]
-resource_name = "SLIDING"
+[sub_resource type="Animation" id=9]
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 12 )
@@ -163,11 +157,11 @@ texture = ExtResource( 13 )
 centered = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/ATTACK = SubResource( 9 )
-anims/CROUCH = SubResource( 2 )
-anims/CROUCH_WALK = SubResource( 3 )
-anims/FALLING = SubResource( 4 )
-anims/IDLE = SubResource( 5 )
-anims/JUMP = SubResource( 6 )
-anims/RUN = SubResource( 7 )
-anims/SLIDING = SubResource( 8 )
+anims/ATTACK = SubResource( 2 )
+anims/CROUCH = SubResource( 3 )
+anims/CROUCH_WALK = SubResource( 4 )
+anims/FALLING = SubResource( 5 )
+anims/IDLE = SubResource( 6 )
+anims/JUMP = SubResource( 7 )
+anims/RUN = SubResource( 8 )
+anims/SLIDING = SubResource( 9 )
